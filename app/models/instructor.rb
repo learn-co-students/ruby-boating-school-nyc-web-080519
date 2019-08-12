@@ -15,20 +15,13 @@ class Instructor
 
 
   def update_student_status(student_instance, test_name, status)
-    my_tests = BoatingTest.all.select do |test| 
-      test.instructor == self 
-    end
-    match = false 
-    my_tests.each do |test|
-      if student_instance.first_name == test.student.first_name
+    BoatingTest.all.each do |test|
+      if student_instance.first_name == test.student.first_name && test.instructor == self 
         test.status == status
-        match = true 
         return test 
       end 
     end #end do 
-    if match == false
-      BoatingTest.new(student_instance, test_name, status, self)
-    end   
+    BoatingTest.new(student_instance, test_name, status, self)
   end #end update_student_status
 
   def pass_student(student_instance, name)
